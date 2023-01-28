@@ -1,0 +1,11 @@
+{% extends 'py1/styling.html' %} {% block content %}
+<h1>Login</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="Login">
+</form>
+
+<p>You don't have an account? Click here!<a href="{% url 'register' %}">Register</p>
+{% endblock content %}

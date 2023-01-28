@@ -1,0 +1,37 @@
+
+{% extends 'py1/styling.html' %} {% block content %}
+{% if request.user.is_authenticated %}
+<p>{{request.user}}</p>
+<a href="{% url 'logout' %}">Logout</a>
+{% else %}
+<a href="{% url 'login' %}">Login</a>
+{% endif %}
+
+<h1>My To Do List</h1>
+<a href="{% url 'task-create' %}">Add a Task!</a>
+<form method="GET">
+    <input type='text' name='search-bar' value="{{search_in}}">
+    <input type="submit" value='Search'>
+</form>
+<table>
+    <tr>
+        <th>Item</th>
+        <th></th>
+        <th></th>
+    </tr>
+    {% for task in tasks %}
+    <tr>
+        <td>{{task.title}}</td>
+        <td><a href = "{% url 'task' task.id %}">View</a></td>
+         <td><a href = "{% url 'task-update' task.id %}">Edit</a></td>
+        <td><a href = "{% url 'task-delete' task.id %}">Delete</a></td>
+
+    </tr>
+    {% empty %}
+    <h3>Nothing here yet...</h3>
+    {% endfor %}
+
+
+</table>
+
+{% endblock content %}
